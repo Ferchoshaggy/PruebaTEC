@@ -17,6 +17,7 @@
 <label class="label-body">Formulario</label>
 </div>
 
+<form action="Datos.php" target="_blank" method="POST">
 <div class="card-body"> 
 <div class="row">
 <label class="label-row">Datos Personales</label>
@@ -28,7 +29,7 @@
 
 <div class="col-md-3">
     <label for="fecha" class="label-col">Fecha de Nacimiento</label>
-    <input type="date" name="fecha" id="fecha" class="form-control" >
+    <input type="date" name="fecha" id="fecha" class="form-control" onchange="getDiagnosticoData()">
 </div>
 
 <div class="col-md-3">
@@ -47,7 +48,7 @@
     <div class="col-md-3">
 <label for="temperatura" class="label-col">Temperatura</label>
 <div class="input-group">
-    <input type="number" name="temperatura" id="temperatura" class="form-control">
+    <input type="number" name="temperatura" id="temperatura" step="0.01"  class="form-control">
     <div class="input-group-append">
     <span class="input-group-text">°</span>
   </div>
@@ -57,27 +58,21 @@
     <div class="col-md-3">
     <label for="estatura" class="label-col">Estatura</label>
 <div class="input-group">
-    <input type="number" name="estatura" id="estatura" class="form-control">
-    <div class="input-group-append">
-    <span class="input-group-text">M</span>
-  </div>
+    <input type="number" name="estatura" id="estatura" step="0.01" class="form-control">
 </div>
     </div>
 
     <div class="col-md-3">
     <label for="peso" class="label-col">Peso</label>
 <div class="input-group">
-    <input type="number" name="peso" id="peso" class="form-control">
-    <div class="input-group-append">
-    <span class="input-group-text">KG</span>
-  </div>
+    <input type="number" name="peso" id="peso" step="0.01"  class="form-control">
 </div>
     </div>
 
     <div class="col-md-3">
     <label for="oxigeno" class="label-col">Saturacion de oxigeno</label>
     <div class="input-group">
-    <input type="number" name="oxigeno" id="oxigeno" class="form-control">
+    <input type="number" name="oxigeno" id="oxigeno" step="0.01"  class="form-control">
     <div class="input-group-append">
     <span class="input-group-text">SpO2</span>
   </div>
@@ -98,7 +93,7 @@
 <div class="row">
    <div class="col-md-12" id="dropdown">
    <label for="diagnostico" class="label-col">Diagnostico</label>
-   <input type="text" name="diagnostico" id="diagnostico" class="form-control">
+   <input type="text" name="diagnostico" id="diagnostico" class="form-control" onclick="getDiagnosticoData()">
 
    </div>
 </div>
@@ -111,10 +106,9 @@
 </div>
 <br>
 
-
 </div>
+</form>
 </div>
-
 
 <script src="/Public/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/ApiDiagnostico.js"></script>

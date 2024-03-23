@@ -27,10 +27,6 @@ console.log(sexo);
         url: url,    
         dataType: "json", 
         success: function (data) { 
-
-console.log(data)
-
-
         }, //End of AJAX Success function  
     }); 
 

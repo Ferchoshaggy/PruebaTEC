@@ -1,0 +1,22 @@
+body{
+    background-image: url(/Public/fondo2.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed ;
+    background-size:cover ;
+  
+}
+
+.form-inf{
+    background-color: rgba(50, 117, 218, 0.404);
+    border-radius: 25px;
+}
+
+.label-grand{
+    font-size: 30px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.label-med{
+    font-size: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+}
