@@ -9,25 +9,32 @@ async function getDiagnosticoData(){
     var edad=document.getElementById("fecha").value;
     var sexo=document.getElementById("sexo").value;
 
-    if(edad==="" && sexo==="NO"){
+    var fecha = calcularEdad(edad);
+
+    if(edad==="" || fecha < 0 && sexo==="NO"){
        var url="http://localhost:3000/diagnostico";
-    }else if(edad==="" && sexo==="MUJER"){
-        var url="http://localhost:3000/diagnostico?lsex=MUJER";
-    }else if(edad==="" && sexo==="HOMBRE"){
-        var url="http://localhost:3000/diagnostico?lsex=HOMBRE";
+    }else if(edad==="" || fecha < 0 && sexo !=="NO"){
+        var url="http://localhost:3000/diagnostico?lsex="+sexo;
+    }else if(fecha <= 9 && fecha >= 0 && sexo ==="NO"){
+        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf=00"+fecha+"A";
+    }else if(fecha <= 9 && fecha >= 0 && sexo !=="NO"){
+        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf=00"+fecha+"A";
+    }else if(fecha <= 99 && fecha >= 10 && sexo ==="NO"){
+        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf=0"+fecha+"A";
+    }else if(fecha <= 99 && fecha >= 10 && sexo !=="NO"){
+        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf=0"+fecha+"A";
+    }else if(fecha <= 120 && fecha >=100 && sexo ==="NO"){
+        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf="+fecha+"A";
+    }else if(fecha <= 120 && fecha >=100 && sexo !=="NO"){
+        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf="+fecha+"A";
     }
-
-
-console.log(edad);
-console.log(sexo);
-    console.log(url);
 
     $.ajax({  
         type: "GET",  
         url: url,    
         dataType: "json", 
         success: function (data) { 
-        }, //End of AJAX Success function  
+        }, 
     }); 
 
 
@@ -35,13 +42,13 @@ console.log(sexo);
     const data = await diagnosticosJs.json();
 
     diagnosticoNombre = data.map((diagnosticos) =>{
-return diagnosticos.catalog_key + "-" + diagnosticos.nombre;
+    return diagnosticos.catalog_key + "-" + diagnosticos.nombre;
     });
 
 }
 
 function onInputChange(){
-    removeDropdownAuto()
+removeDropdownAuto()
 const value = inputDi.value.toLowerCase();
 
 if(value.length === 0) return;
@@ -72,12 +79,12 @@ list.forEach((diagKey) =>{
 document.querySelector("#dropdown").appendChild(listEL);
  }
 
- function removeDropdownAuto(){
+function removeDropdownAuto(){
 const listEl =document.querySelector("#list-autocomplete")
 if(listEl) listEl.remove();
  }
 
- function onSelectDiagnostico(e){
+function onSelectDiagnostico(e){
     e.preventDefault();
 
 const buttonEl = e.target;
@@ -85,3 +92,24 @@ inputDi.value = buttonEl.innerHTML;
 
 removeDropdownAuto();
  }
+
+ function calcularEdad(fechaNacimiento) {
+    const fechaActual = new Date();
+    const anoActual = parseInt(fechaActual.getFullYear());
+    const mesActual = parseInt(fechaActual.getMonth()) + 1;
+    const diaActual = parseInt(fechaActual.getDate());
+
+    const anoNacimiento = parseInt(String(fechaNacimiento).substring(0, 4));
+    const mesNacimiento = parseInt(String(fechaNacimiento).substring(5, 7));
+    const diaNacimiento = parseInt(String(fechaNacimiento).substring(8, 10));
+
+    let edad = anoActual - anoNacimiento;
+    if (mesActual < mesNacimiento) {
+        edad--;
+    } else if (mesActual === mesNacimiento) {
+        if (diaActual < diaNacimiento) {
+            edad--;
+        }
+    }
+   return edad;
+}
