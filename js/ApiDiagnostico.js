@@ -11,22 +11,10 @@ async function getDiagnosticoData(){
 
     var fecha = calcularEdad(edad);
 
-    if(edad==="" || fecha < 0 && sexo==="NO"){
+    if(edad==="" || fecha <= 0 && sexo==="NO"){
        var url="http://localhost:3000/diagnostico";
-    }else if(edad==="" || fecha < 0 && sexo !=="NO"){
+    }else if(edad==="" || fecha <= 0 && sexo !=="NO"){
         var url="http://localhost:3000/diagnostico?lsex="+sexo;
-    }else if(fecha <= 9 && fecha >= 0 && sexo ==="NO"){
-        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf=00"+fecha+"A";
-    }else if(fecha <= 9 && fecha >= 0 && sexo !=="NO"){
-        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf=00"+fecha+"A";
-    }else if(fecha <= 99 && fecha >= 10 && sexo ==="NO"){
-        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf=0"+fecha+"A";
-    }else if(fecha <= 99 && fecha >= 10 && sexo !=="NO"){
-        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf=0"+fecha+"A";
-    }else if(fecha <= 120 && fecha >=100 && sexo ==="NO"){
-        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf="+fecha+"A";
-    }else if(fecha <= 120 && fecha >=100 && sexo !=="NO"){
-        var url="http://localhost:3000/diagnostico?lsex="+sexo+"&linf="+fecha+"A";
     }
 
     $.ajax({  
